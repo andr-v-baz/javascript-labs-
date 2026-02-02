@@ -1,2 +1,2 @@
 # javascript-labs-
-Laboratorty
+Repository with JavaScript laboratory works
