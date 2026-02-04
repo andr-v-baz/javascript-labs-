@@ -1,182 +1,159 @@
 <!doctype html>
 <html lang="uk">
 <head>
-  <meta charset="utf-8" />
-  <title>Lab 1 — Triangle</title>
+  <meta charset="utf-8">
+  <title>Лабораторна робота №1 — JavaScript</title>
 </head>
 <body>
-  <h1>Lab 1 — Triangle (Console)</h1>
-  <p>Відкрий DevTools (F12) → Console і викликай <b>triangle(...)</b></p>
 
-  <script>
-(() => {
-  const TYPES = ["leg", "hypotenuse", "adjacent angle", "opposite angle", "angle"];
+<h1>Лабораторна робота №1</h1>
+<h2>Розв’язання прямокутного трикутника засобами JavaScript</h2>
 
-  const toRad = (deg) => (deg * Math.PI) / 180;
-  const toDeg = (rad) => (rad * 180) / Math.PI;
+<p>
+У даній лабораторній роботі реалізовано JavaScript-функцію
+<b>triangle</b>, яка дозволяє знайти всі сторони та гострі кути
+прямокутного трикутника за двома заданими величинами.
+</p>
 
-  const isFinitePos = (x) => Number.isFinite(x) && x > 0;
+<p>
+Робота з функцією здійснюється через <b>консоль браузера</b>.
+Для цього необхідно відкрити інструменти розробника (клавіша <b>F12</b>),
+перейти на вкладку <b>Console</b> та викликати функцію <code>triangle(...)</code>.
+</p>
 
-  const normalizeType = (t) => String(t).trim().toLowerCase();
+<h3>Формат виклику функції</h3>
+<pre>
+triangle(значення1, "тип1", значення2, "тип2")
+</pre>
 
-  const logHelp = () => {
-    console.log(
-`triangle(value1, "type1", value2, "type2")
-Types:
-- "leg"              (катет)
-- "hypotenuse"       (гіпотенуза)
-- "adjacent angle"   (кут, прилеглий до заданого катета)
-- "opposite angle"   (кут, протилежний до заданого катета)
-- "angle"            (один з гострих кутів, коли задана гіпотенуза)
+<h3>Можливі типи значень</h3>
+<ul>
+  <li><code>"leg"</code> — катет</li>
+  <li><code>"hypotenuse"</code> — гіпотенуза</li>
+  <li><code>"adjacent angle"</code> — кут, прилеглий до катета</li>
+  <li><code>"opposite angle"</code> — кут, протилежний до катета</li>
+  <li><code>"angle"</code> — один з гострих кутів (коли задана гіпотенуза)</li>
+</ul>
 
-Angles are in DEGREES.
-Examples:
-triangle(4, "leg", 8, "hypotenuse");
-triangle(30, "angle", 10, "hypotenuse");
-triangle(7, "leg", 35, "adjacent angle");`
-    );
-  };
+<p><b>Кути задаються у градусах.</b></p>
 
-  logHelp();
+<script>
+(function () {
 
-  function output(a, b, c, alpha, beta) {
-    const fix = (x) => Math.round(x * 1000) / 1000;
+  console.log(
+  'triangle(value1, "type1", value2, "type2")\n' +
+  'Types:\n' +
+  'leg — катет\n' +
+  'hypotenuse — гіпотенуза\n' +
+  'adjacent angle — кут, прилеглий до катета\n' +
+  'opposite angle — кут, протилежний до катета\n' +
+  'angle — один з гострих кутів (коли задана гіпотенуза)\n' +
+  'Angles are in degrees (кути задаються у градусах).\n' +
+  'Examples:\n' +
+  'triangle(4, "leg", 8, "hypotenuse");'
+);
 
-    console.log("Результат:");
-    console.log(`a = ${fix(a)}  (катет)`);
-    console.log(`b = ${fix(b)}  (катет)`);
-    console.log(`c = ${fix(c)}  (гіпотенуза)`);
-    console.log(`alpha = ${fix(alpha)}°  (кут навпроти a)`);
-    console.log(`beta  = ${fix(beta)}°  (кут навпроти b)`);
+  function toRadians(deg) {
+    return deg * Math.PI / 180;
   }
 
-  function failed(msg) {
-    console.log(msg);
-    return "failed";
+  function roundValue(x) {
+    return Math.round(x * 1000) / 1000;
   }
 
-  function invalidValue(msg) {
-    console.log(msg);
-    return msg; // за умовою: рядок із повідомленням
-  }
+  function triangle(v1, t1, v2, t2) {
+    var value1 = Number(v1);
+    var value2 = Number(v2);
 
-  function solveFromLegHyp(leg, hyp) {
-    if (!(leg < hyp)) return invalidValue("Некоректно: катет повинен бути менший за гіпотенузу.");
-    const other = Math.sqrt(hyp * hyp - leg * leg);
-    // Тут leg може бути a або b — це вирішимо пізніше зовнішньою логікою
-    return { other };
-  }
-
-  function solveFromHypAngle(hyp, angleDeg, angleIsAlpha) {
-    if (!(angleDeg > 0 && angleDeg < 90)) return invalidValue("Некоректно: кут має бути гострим (0..90).");
-    const ang = toRad(angleDeg);
-    const opp = hyp * Math.sin(ang);
-    const adj = hyp * Math.cos(ang);
-    // якщо angle = alpha: opp = a, adj = b; якщо angle = beta: opp = b, adj = a
-    if (angleIsAlpha) return { a: opp, b: adj };
-    return { a: adj, b: opp };
-  }
-
-  function solveFromLegAngle(leg, angleDeg, isAdjacent, legIsA) {
-    if (!(angleDeg > 0 && angleDeg < 90)) return invalidValue("Некоректно: кут має бути гострим (0..90).");
-    const ang = toRad(angleDeg);
-
-    // Ми завжди знаємо який катет даний: або a, або b (визначається логікою нижче)
-    // Якщо кут прилеглий до даного катета:
-    //   cos(theta) = adjacent/hyp => hyp = leg / cos
-    //   tan(theta) = opposite/adjacent => opposite = leg * tan
-    // Якщо кут протилежний даному катету:
-    //   sin(theta) = opposite/hyp => hyp = leg / sin
-    //   tan(theta) = opposite/adjacent => adjacent = leg / tan
-    let hyp, otherLeg;
-    if (isAdjacent) {
-      hyp = leg / Math.cos(ang);
-      otherLeg = leg * Math.tan(ang);
-    } else {
-      hyp = leg / Math.sin(ang);
-      otherLeg = leg / Math.tan(ang);
+    if (value1 <= 0 || value2 <= 0) {
+      console.log("Помилка: значення повинні бути додатними.");
+      return "failed";
     }
 
-    // Якщо даний катет = a, то інший = b, і навпаки
-    if (legIsA) return { a: leg, b: otherLeg, c: hyp };
-    return { a: otherLeg, b: leg, c: hyp };
-  }
+    t1 = String(t1).toLowerCase();
+    t2 = String(t2).toLowerCase();
 
-  function finalize(a, b) {
-    const c = Math.sqrt(a * a + b * b);
-    const alpha = toDeg(Math.asin(a / c));
-    const beta = 90 - alpha;
-    output(a, b, c, alpha, beta);
+    var a, b, c, alpha, beta;
+
+    // катет + гіпотенуза
+    if ((t1 === "leg" && t2 === "hypotenuse") ||
+        (t2 === "leg" && t1 === "hypotenuse")) {
+
+      var leg = (t1 === "leg") ? value1 : value2;
+      var hyp = (t1 === "hypotenuse") ? value1 : value2;
+
+      if (leg >= hyp) {
+        console.log("Помилка: катет повинен бути менший за гіпотенузу.");
+        return "failed";
+      }
+
+      a = leg;
+      c = hyp;
+      b = Math.sqrt(c * c - a * a);
+    }
+
+    // гіпотенуза + кут
+    else if ((t1 === "hypotenuse" && t2 === "angle") ||
+             (t2 === "hypotenuse" && t1 === "angle")) {
+
+      c = (t1 === "hypotenuse") ? value1 : value2;
+      alpha = (t1 === "angle") ? value1 : value2;
+
+      if (alpha <= 0 || alpha >= 90) {
+        console.log("Помилка: кут повинен бути гострим.");
+        return "failed";
+      }
+
+      a = c * Math.sin(toRadians(alpha));
+      b = c * Math.cos(toRadians(alpha));
+    }
+
+    // катет + прилеглий або протилежний кут
+    else if ((t1 === "leg" && (t2 === "adjacent angle" || t2 === "opposite angle")) ||
+             (t2 === "leg" && (t1 === "adjacent angle" || t1 === "opposite angle"))) {
+
+      a = (t1 === "leg") ? value1 : value2;
+      alpha = (t1 === "leg") ? value2 : value1;
+
+      if (alpha <= 0 || alpha >= 90) {
+        console.log("Помилка: кут повинен бути гострим.");
+        return "failed";
+      }
+
+      if (t1 === "adjacent angle" || t2 === "adjacent angle") {
+        b = a * Math.tan(toRadians(alpha));
+        c = a / Math.cos(toRadians(alpha));
+      } else {
+        b = a / Math.tan(toRadians(alpha));
+        c = a / Math.sin(toRadians(alpha));
+      }
+    }
+
+    else {
+      console.log("Помилка: несумісна пара типів.");
+      return "failed";
+    }
+
+    c = Math.sqrt(a * a + b * b);
+    alpha = Math.asin(a / c) * 180 / Math.PI;
+    beta = 90 - alpha;
+
+    console.log(
+      "Результат:\n" +
+      "a = " + roundValue(a) + "\n" +
+      "b = " + roundValue(b) + "\n" +
+      "c = " + roundValue(c) + "\n" +
+      "alpha = " + roundValue(alpha) + "°\n" +
+      "beta = " + roundValue(beta) + "°"
+    );
+
     return "success";
   }
 
-  // Головна функція (експортуємо в window)
-  window.triangle = function triangle(v1, t1, v2, t2) {
-    const type1 = normalizeType(t1);
-    const type2 = normalizeType(t2);
+  window.triangle = triangle;
 
-    if (!TYPES.includes(type1) || !TYPES.includes(type2)) {
-      return failed("Невірний тип. Перечитайте інструкцію (див. console.log вище).");
-    }
-
-    const x1 = Number(v1);
-    const x2 = Number(v2);
-
-    if (!isFinitePos(x1) || !isFinitePos(x2)) {
-      return invalidValue("Некоректні значення: аргументи мають бути додатніми числами.");
-    }
-
-    // Приводимо до зручного порядку
-    const A = { v: x1, t: type1 };
-    const B = { v: x2, t: type2 };
-
-    // 1) leg + hypotenuse
-    if ((A.t === "leg" && B.t === "hypotenuse") || (A.t === "hypotenuse" && B.t === "leg")) {
-      const leg = A.t === "leg" ? A.v : B.v;
-      const hyp = A.t === "hypotenuse" ? A.v : B.v;
-      const res = solveFromLegHyp(leg, hyp);
-      if (typeof res === "string") return res;
-
-      // Тут не визначено, чи leg = a чи b — це неважливо, просто назвемо його a
-      const a = leg;
-      const b = res.other;
-      return finalize(a, b);
-    }
-
-    // 2) hypotenuse + angle  (кут = alpha або beta, але ми не знаємо який — зробимо alpha за замовч.)
-    if ((A.t === "hypotenuse" && B.t === "angle") || (A.t === "angle" && B.t === "hypotenuse")) {
-      const hyp = A.t === "hypotenuse" ? A.v : B.v;
-      const ang = A.t === "angle" ? A.v : B.v;
-
-      // За замовчуванням вважаємо, що заданий кут = alpha
-      const res = solveFromHypAngle(hyp, ang, true);
-      if (typeof res === "string") return res;
-
-      return finalize(res.a, res.b);
-    }
-
-    // 3) leg + adjacent angle / opposite angle
-    if (
-      (A.t === "leg" && (B.t === "adjacent angle" || B.t === "opposite angle")) ||
-      (B.t === "leg" && (A.t === "adjacent angle" || A.t === "opposite angle"))
-    ) {
-      const leg = A.t === "leg" ? A.v : B.v;
-      const ang = A.t === "leg" ? B.v : A.v;
-      const angType = A.t === "leg" ? B.t : A.t;
-
-      const isAdjacent = angType === "adjacent angle";
-
-      // Без додаткової інформації “який саме катет (a чи b)” не визначено.
-      // Приймаємо: введений "leg" = a (стандартно).
-      const res = solveFromLegAngle(leg, ang, isAdjacent, true);
-      if (typeof res === "string") return res;
-
-      return finalize(res.a, res.b);
-    }
-
-    return failed("Несумісна пара типів. Перечитайте інструкцію (див. console.log вище).");
-  };
 })();
 </script>
+
 </body>
 </html>
