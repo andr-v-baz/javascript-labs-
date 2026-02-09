@@ -41,17 +41,18 @@ triangle(значення1, "тип1", значення2, "тип2")
 (function () {
 
   console.log(
-  'triangle(value1, "type1", value2, "type2")\n' +
-  'Types:\n' +
-  'leg — катет\n' +
-  'hypotenuse — гіпотенуза\n' +
-  'adjacent angle — кут, прилеглий до катета\n' +
-  'opposite angle — кут, протилежний до катета\n' +
-  'angle — один з гострих кутів (коли задана гіпотенуза)\n' +
-  'Angles are in degrees (кути задаються у градусах).\n' +
-  'Examples:\n' +
-  'triangle(4, "leg", 8, "hypotenuse");'
-);
+    'triangle(value1, "type1", value2, "type2")\n' +
+    'Types:\n' +
+    'leg — катет\n' +
+    'hypotenuse — гіпотенуза\n' +
+    'adjacent angle — кут, прилеглий до катета\n' +
+    'opposite angle — кут, протилежний до катета\n' +
+    'angle — один з гострих кутів (коли задана гіпотенуза)\n' +
+    'Angles are in degrees (кути задаються у градусах).\n' +
+    'Examples:\n' +
+    'triangle(4, "leg", 8, "hypotenuse");\n' +
+    'triangle(3, "leg", 4, "leg");'
+  );
 
   function toRadians(deg) {
     return deg * Math.PI / 180;
@@ -65,19 +66,26 @@ triangle(значення1, "тип1", значення2, "тип2")
     var value1 = Number(v1);
     var value2 = Number(v2);
 
-    if (value1 <= 0 || value2 <= 0) {
+    if (!isFinite(value1) || !isFinite(value2) || value1 <= 0 || value2 <= 0) {
       console.log("Помилка: значення повинні бути додатними.");
       return "failed";
     }
 
-    t1 = String(t1).toLowerCase();
-    t2 = String(t2).toLowerCase();
+    t1 = String(t1).toLowerCase().trim();
+    t2 = String(t2).toLowerCase().trim();
 
     var a, b, c, alpha, beta;
 
+    //  катет + катет
+    if (t1 === "leg" && t2 === "leg") {
+      a = value1;
+      b = value2;
+      c = Math.sqrt(a * a + b * b);
+    }
+
     // катет + гіпотенуза
-    if ((t1 === "leg" && t2 === "hypotenuse") ||
-        (t2 === "leg" && t1 === "hypotenuse")) {
+    else if ((t1 === "leg" && t2 === "hypotenuse") ||
+             (t2 === "leg" && t1 === "hypotenuse")) {
 
       var leg = (t1 === "leg") ? value1 : value2;
       var hyp = (t1 === "hypotenuse") ? value1 : value2;
