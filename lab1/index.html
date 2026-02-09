@@ -59,8 +59,16 @@ triangle(значення1, "тип1", значення2, "тип2")
   }
 
   function roundValue(x) {
-    return Math.round(x * 1000) / 1000;
-  }
+  if (!isFinite(x)) return x;
+
+  var ax = Math.abs(x);
+  
+  if (ax > 0 && ax < 1e-3) return x;
+
+  if (ax > Number.MAX_VALUE / 1000) return x;
+
+  return Math.round(x * 1000) / 1000;
+}
 
   function triangle(v1, t1, v2, t2) {
     var value1 = Number(v1);
@@ -76,11 +84,11 @@ triangle(значення1, "тип1", значення2, "тип2")
 
     var a, b, c, alpha, beta;
 
-    //  катет + катет
+    // катет + катет
     if (t1 === "leg" && t2 === "leg") {
       a = value1;
       b = value2;
-      c = Math.sqrt(a * a + b * b);
+      c = Math.hypot(a, b); 
     }
 
     // катет + гіпотенуза
@@ -97,7 +105,8 @@ triangle(значення1, "тип1", значення2, "тип2")
 
       a = leg;
       c = hyp;
-      b = Math.sqrt(c * c - a * a);
+      var r = a / c;
+      b = c * Math.sqrt(1 - r * r);
     }
 
     // гіпотенуза + кут
@@ -142,7 +151,8 @@ triangle(значення1, "тип1", значення2, "тип2")
       return "failed";
     }
 
-    c = Math.sqrt(a * a + b * b);
+    c = Math.hypot(a, b);
+
     alpha = Math.asin(a / c) * 180 / Math.PI;
     beta = 90 - alpha;
 
