@@ -1,0 +1,18 @@
+.game-controls{
+margin-bottom:15px;
+}
+
+.game-controls button{
+padding:10px 20px;
+margin:5px;
+border:none;
+border-radius:6px;
+background:#ff3c3c;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.game-controls button:hover{
+background:#ff1f1f;
+}

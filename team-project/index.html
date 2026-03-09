@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Anime Character Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/game.css">
+
+</head>
+
+<body id="top">
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+<a href="#top">
+<img src="images/logo/logo.png" alt="logo">
+</a>
+</div>
+
+<ul class="menu">
+
+<li>
+<a href="#top">Дім</a>
+</li>
+
+<li>
+<a href="#characters-title">Персонажі</a>
+</li>
+
+<li>
+<a href="#game">Гра</a>
+</li>
+
+</ul>
+
+<div id="greeting"></div>
+
+</nav>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+<h1>Anime Character Hub</h1>
+
+<p>
+Досліджуйте відомих аніме-персонажів та перевірте свої навички ніндзя!
+</p>
+
+</header>
+
+<div class="name-box">
+
+<div id="nameInputBox">
+
+<input 
+type="text" 
+id="usernameInput" 
+placeholder="Введіть своє ім'я">
+
+<button id="saveName">OK</button>
+
+</div>
+
+<button id="editNameBtn" style="display:none;">
+Змінити ім'я
+</button>
+
+</div>
+<!-- SEARCH -->
+
+<section class="search-section">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Пошук персонажа..."
+>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section class="categories-section">
+
+<h2>Аніме Категорії</h2>
+
+<div id="categories"></div>
+
+</section>
+
+
+<!-- CHARACTERS -->
+
+<section class="characters-section">
+
+<h2 id="characters-title">Персонажі</h2>
+
+<div id="characters"></div>
+
+<!-- повідомлення якщо нічого не знайдено -->
+<p id="noResults" style="display:none; text-align:center; margin-top:20px;">
+Нічого не знайдено
+</p>
+
+</section>
+
+
+<!-- GAME -->
+
+<section id="game">
+
+<h2>Ninja Dodge</h2>
+
+<div id="game-container">
+
+<div class="game-controls">
+<button id="startBtn">Start</button>
+<button id="pauseBtn">Pause</button>
+</div>
+
+<canvas
+id="gameCanvas"
+width="800"
+height="400">
+</canvas>
+
+</div>
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>Anime Character Hub © 2026</p>
+
+<p>Team project - Web Programming</p>
+<p>Базюк А., Дудишин О., Гончар А.</p>
+</footer>
+
+<!-- JS -->
+
+<script src="js/fetchData.js"></script>
+<script src="js/search.js"></script>
+<script src="js/greeting.js"></script>
+<script src="js/game.js"></script>
+
+</body>
+</html>

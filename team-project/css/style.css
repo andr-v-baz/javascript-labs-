@@ -1,0 +1,296 @@
+/* BASE */
+
+body{
+  margin:0;
+  font-family:'Poppins', sans-serif;
+  background:#0f0f0f;
+  color:white;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+/* FIX SCROLL FOR SECTIONS */
+
+section{
+  scroll-margin-top:40px;
+}
+
+/* NAVBAR */
+.not-found{
+  text-align:center;
+  width:100%;
+  font-size:36px;
+  color:#888;
+  margin-top:60px;
+  font-weight:600;
+}
+
+.name-box{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.name-box input{
+  padding:10px 12px;
+  border:none;
+  border-radius:6px;
+  outline:none;
+  margin-right:10px;
+}
+
+.name-box button{
+  padding:10px 16px;
+  background:#ff3c3c;
+  border:none;
+  border-radius:6px;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 10px rgba(255,60,60,0.6);
+  transition:0.3s;
+}
+
+.name-box button:hover{
+  background:#ff1f1f;
+  box-shadow:0 0 20px rgba(255,60,60,1);
+}
+
+.navbar{
+  display:flex;
+  align-items:center;
+  gap:60px;
+  padding:10px 40px;
+  background:#000;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:600;
+}
+
+.logo img{
+  height:90px;
+}
+
+.menu{
+  display:flex;
+  list-style:none;
+  gap:35px;
+  margin:0;
+  padding:0;
+  margin-left:40px;
+}
+
+.menu a{
+  position:relative;
+  color:white;
+  text-decoration:none;
+}
+
+.menu a:visited{
+  color:white;
+}
+
+.menu a::after{
+  content:"";
+  position:absolute;
+  width:0;
+  height:2px;
+  left:0;
+  bottom:-5px;
+  background:#ff3c3c;
+  transition:width 0.3s ease;
+}
+
+.menu a:hover::after{
+  width:100%;
+}
+
+
+/* HEADER */
+
+.header{
+  text-align:center;
+  padding:40px 20px;
+}
+
+.header h1{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+.header p{
+  color:#ccc;
+}
+
+
+/* SEARCH */
+
+.search-section{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+#searchInput{
+  padding:10px 15px;
+  width:250px;
+  border:none;
+  border-radius:6px;
+  outline:none;
+}
+
+
+/* CATEGORY GRID */
+
+#categories{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:25px;
+  padding:40px 80px;
+}
+
+
+/* CATEGORY CARD */
+
+.category-card{
+  background:#1a1a1a;
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.category-card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(255,255,255,0.1);
+}
+.category-card img{
+  transition:0.4s;
+}
+
+.category-card:hover img{
+  transform:scale(1.08);
+}
+.category-card img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  object-position:top;
+}
+
+.category-card h2{
+  text-align:center;
+  font-size:22px;
+  margin:15px 0;
+}
+
+
+/* SECTION TITLES */
+
+section h2{
+  margin-left:40px;
+  margin-top:40px;
+  font-size:28px;
+}
+
+
+/* CHARACTERS GRID */
+
+#characters{
+  display:grid;
+  gap:30px;
+  padding:40px;
+}
+
+/* коли вибрана категорія */
+
+.characters-full{
+  grid-template-columns:repeat(3,1fr);
+}
+
+/* коли пошук */
+
+.characters-search{
+  grid-template-columns:repeat(auto-fill,260px);
+  justify-content:center;
+}
+
+
+/* CHARACTER CARD */
+
+.character-card{
+  background:#1a1a1a;
+  border-radius:12px;
+  padding:15px;
+  transition:0.3s;
+  border:1px solid transparent;
+}
+
+.character-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 30px rgba(255,60,60,0.4);
+  border:1px solid #ff3c3c;
+}
+
+
+/* IMAGE FIX */
+
+.character-card img{
+  width:100%;
+  aspect-ratio:736/964;
+  object-fit:cover;
+  object-position:top;
+  border-radius:10px;
+}
+
+
+/* TEXT */
+
+.character-card h3{
+  margin:10px 0 5px;
+}
+
+.character-card p{
+  font-size:14px;
+  color:#ccc;
+}
+
+
+/* GAME */
+
+#game{
+  text-align:center;
+  padding:80px 20px 50px 20px;
+}
+
+#gameCanvas{
+  background:#222;
+  border:3px solid #444;
+  border-radius:10px;
+}
+
+.game-controls button{
+  background:#ff3c3c;
+  box-shadow:0 0 10px rgba(255,60,60,0.6);
+  transition:0.3s;
+}
+
+.game-controls button:hover{
+  box-shadow:0 0 20px rgba(255,60,60,1);
+}
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:25px;
+  background:#000;
+  margin-top:40px;
+  color:#aaa;
+}

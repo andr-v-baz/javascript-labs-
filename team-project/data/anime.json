@@ -1,0 +1,129 @@
+{
+  "categories": [
+    {
+      "name": "Naruto",
+      "image": "images/categories/naruto.jpg",
+      "characters": [
+        {
+          "name": "Наруто Узумакі",
+           "image": "images/anime/naruto/naruto-uzumaki.jpg",
+          "description": "Ніндзя з села Коноха, який мріє стати Хокаге та довести всім свою силу.",
+          "power": "Тіньові клони, Расенган"
+        },
+        {
+          "name": "Саске Учіха",
+          "image": "images/anime/naruto/sasuke-uchiha.jpg",
+          "description": "Останній представник клану Учіха, який прагне помсти та сили.",
+          "power": "Шарінган, Чідорі"
+        },
+        {
+          "name": "Какаші Хатаке",
+         "image": "images/anime/naruto/kakashi-hatake.jpg"
+,
+          "description": "Вчитель команди №7, відомий як Ніндзя-копіювальник.",
+          "power": "Шарінган, Блискавичне лезо"
+        }
+      ]
+    },
+
+    {
+      "name": "One Piece",
+      "image": "images/categories/onepiece.jpg",
+      "characters": [
+        {
+          "name": "Монкі Д. Луффі",
+          "image": "images/anime/onepiece/luffy.jpg",
+          "description": "Капітан піратів Солом’яного Капелюха, який мріє знайти легендарний скарб One Piece.",
+          "power": "Сила гумового тіла"
+        },
+        {
+          "name": "Ророноа Зоро",
+          "image": "images/anime/onepiece/zoro.jpg",
+          "description": "Мечник екіпажу Луффі та один з найсильніших бійців команди.",
+          "power": "Стиль трьох мечів"
+        },
+        {
+          "name": "Намі",
+          "image": "images/anime/onepiece/nami.jpg",
+          "description": "Навігатор команди, яка чудово орієнтується в морях та погоді.",
+          "power": "Керування погодою"
+        }
+      ]
+    },
+
+    {
+      "name": "Demon Slayer",
+      "image": "images/categories/demonslayer.jpg",
+      "characters": [
+        {
+          "name": "Танджіро Камадо",
+          "image": "images/anime/demonslayer/tanjiro.jpg",
+          "description": "Мисливець на демонів, який шукає спосіб врятувати свою сестру.",
+          "power": "Дихання води"
+        },
+        {
+          "name": "Незуко Камадо",
+          "image": "images/anime/demonslayer/nezuko.jpg",
+          "description": "Сестра Танджіро, яка стала демоном, але зберегла людяність.",
+          "power": "Кров’яна демонічна сила"
+        },
+        {
+          "name": "Зеніцу Агацума",
+          "image": "images/anime/demonslayer/zenitsu.jpg",
+          "description": "Боязкий, але надзвичайно сильний мисливець на демонів.",
+          "power": "Дихання блискавки"
+        }
+      ]
+    },
+
+    {
+      "name": "Jujutsu Kaisen",
+      "image": "images/categories/jjk.jpg",
+      "characters": [
+        {
+          "name": "Юджі Ітадорі",
+          "image": "images/anime/jjk/itadori.jpg",
+          "description": "Студент, який став носієм прокляття Сукуни.",
+          "power": "Надлюдська сила"
+        },
+        {
+          "name": "Сатору Годжо",
+          "image": "images/anime/jjk/gojo.jpg",
+          "description": "Найсильніший маг-екзорцист у світі Jujutsu.",
+          "power": "Безмежність"
+        },
+        {
+          "name": "Мегумі Фушігуро",
+          "image": "images/anime/jjk/megumi.jpg",
+          "description": "Спокійний та стратегічний боєць з унікальною технікою тіней.",
+          "power": "Шікігамі з тіней"
+        }
+      ]
+    },
+
+    {
+      "name": "Hunter x Hunter",
+      "image": "images/categories/hunterxhunter.jpg",
+      "characters": [
+        {
+          "name": "Хісока",
+          "image": "images/anime/hunterxhunter/hisoka.jpg",
+          "description": "Таємничий і небезпечний боєць, який любить сильних суперників.",
+          "power": "Bungee Gum"
+        },
+        {
+          "name": "Ілумі Золдік",
+          "image": "images/anime/hunterxhunter/illumi.jpg",
+          "description": "Старший брат Кіллуа та холоднокровний асасин.",
+          "power": "Маніпуляція голками"
+        },
+        {
+          "name": "Кіллуа Золдік",
+          "image": "images/anime/hunterxhunter/killua.jpg",
+          "description": "Талановитий асасин і найкращий друг Гона.",
+          "power": "Блискавична аура"
+        }
+      ]
+    }
+  ]
+}

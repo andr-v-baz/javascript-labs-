@@ -1,0 +1,149 @@
+
+/* ================= */
+/* <576px (телефони) */
+/* ================= */
+
+@media (max-width:575px){
+
+.navbar{
+flex-direction:column;
+gap:20px;
+padding:20px;
+}
+
+.menu{
+flex-direction:column;
+gap:15px;
+margin-left:0;
+}
+
+.menu a{
+font-size:18px;
+}
+
+.logo img{
+height:70px;
+}
+
+.header h1{
+font-size:28px;
+}
+
+/* заголовки секцій */
+section h2{
+text-align:center;
+margin-left:0;
+}
+
+/* пошук */
+#searchInput{
+width:80%;
+}
+
+/* категорії */
+#categories{
+grid-template-columns:1fr;
+padding:20px;
+}
+
+/* персонажі */
+#characters{
+grid-template-columns:1fr;
+}
+
+.characters-full{
+grid-template-columns:1fr;
+}
+
+/* гра */
+#gameCanvas{
+width:100%;
+height:auto;
+}
+
+}
+
+
+/* ================= */
+/* ≥576px <768px */
+/* ================= */
+
+@media (min-width:576px) and (max-width:767px){
+
+#categories{
+grid-template-columns:repeat(2,1fr);
+padding:30px;
+}
+
+#characters{
+grid-template-columns:repeat(2,1fr);
+}
+
+.characters-full{
+grid-template-columns:repeat(2,1fr);
+}
+
+#searchInput{
+width:60%;
+}
+
+#gameCanvas{
+width:100%;
+}
+
+}
+
+
+/* ================= */
+/* ≥768px <992px */
+/* ================= */
+
+@media (min-width:768px) and (max-width:991px){
+
+#categories{
+grid-template-columns:repeat(3,1fr);
+}
+
+#characters{
+grid-template-columns:repeat(2,1fr);
+}
+
+.characters-full{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+
+/* ================= */
+/* ≥992px <1200px */
+/* ================= */
+
+@media (min-width:992px) and (max-width:1199px){
+
+#categories{
+grid-template-columns:repeat(4,1fr);
+}
+
+.characters-full{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
+
+
+/* ================= */
+/* ≥1200px */
+/* ================= */
+
+@media (min-width:1200px){
+
+#categories{
+grid-template-columns:repeat(5,1fr);
+}
+
+.characters-full{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
