@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Sorting Library Demo</title>
+
+<link rel="icon" href="data:,">
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f8;
+    margin:40px;
+}
+
+h1{
+    text-align:center;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+button{
+    padding:12px 20px;
+    font-size:16px;
+    border:none;
+    background:#3b82f6;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2563eb;
+}
+
+.result{
+    margin-top:20px;
+    background:#111;
+    color:#00ff7b;
+    padding:20px;
+    border-radius:6px;
+    font-family:monospace;
+    height:300px;
+    overflow:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>JS Sorting Library Demo</h1>
+
+<p>
+This page demonstrates the work of the JavaScript sorting library.
+Open the browser console to see detailed information about sorting operations.
+</p>
+
+<button onclick="runSorting()">Run Sorting Demo</button>
+
+<div class="result" id="result">
+Results will appear in the console.
+</div>
+
+</div>
+
+<script src="sortLib.js"></script>
+
+<script>
+
+function runSorting(){
+
+let arr = [];
+
+for(let i=0;i<100;i++){
+    arr.push(Math.floor(Math.random()*100));
+}
+
+console.log("Original array:", arr);
+
+SortLib.exchange([...arr], true);
+SortLib.selection([...arr], true);
+SortLib.insertion([...arr], true);
+SortLib.shell([...arr], true);
+SortLib.quick([...arr], true);
+
+
+let sparse = [];
+
+for(let i=0;i<100;i++){
+    sparse[i] = Math.floor(Math.random()*100);
+}
+
+sparse[20] = undefined;
+sparse[50] = undefined;
+
+console.log("Sparse array:", sparse);
+
+SortLib.exchange([...sparse], true);
+SortLib.selection([...sparse], true);
+SortLib.insertion([...sparse], true);
+SortLib.shell([...sparse], true);
+SortLib.quick([...sparse], true);
+
+}
+
+</script>
+
+</body>
+</html>
