@@ -3,6 +3,8 @@ const ctx = canvas.getContext("2d");
 
 const startBtn = document.getElementById("startBtn");
 const pauseBtn = document.getElementById("pauseBtn");
+const leftBtn = document.getElementById("leftBtn");
+const rightBtn = document.getElementById("rightBtn");
 
 let gameRunning = false;
 let gameOver = false;
@@ -30,7 +32,6 @@ const player = {
   speed: 7
 };
 
-// IMAGES
 const backgroundImg = new Image();
 backgroundImg.src = "images/game/background.png";
 
@@ -58,39 +59,71 @@ kunaiImg.src = "images/game/kunai.png";
 const heartImg = new Image();
 heartImg.src = "images/game/heart.png";
 
-
-// KEYBOARD
-document.addEventListener("keydown", (event)=>{
+document.addEventListener("keydown", event => {
   keys[event.key] = true;
 });
 
-document.addEventListener("keyup", (event)=>{
+document.addEventListener("keyup", event => {
   keys[event.key] = false;
 });
 
+canvas.addEventListener("touchstart", e => {
+  e.preventDefault();
 
-// TOUCH CONTROLS
-canvas.addEventListener("touchstart", (e)=>{
-  const touchX = e.touches[0].clientX;
   const rect = canvas.getBoundingClientRect();
+  const touchX = e.touches[0].clientX - rect.left;
+  const scaledX = touchX * (canvas.width / rect.width);
 
-  const x = touchX - rect.left;
-
-  if(x < canvas.width / 2){
+  if(scaledX < canvas.width / 2){
     moveLeft = true;
+    moveRight = false;
   } else {
     moveRight = true;
+    moveLeft = false;
   }
-});
+}, { passive: false });
 
-canvas.addEventListener("touchend", ()=>{
+canvas.addEventListener("touchend", () => {
   moveLeft = false;
   moveRight = false;
 });
 
+function activateLeft(){
+  moveLeft = true;
+  moveRight = false;
+}
 
-// BUTTONS
-startBtn.addEventListener("click", ()=>{
+function activateRight(){
+  moveRight = true;
+  moveLeft = false;
+}
+
+function stopMove(){
+  moveLeft = false;
+  moveRight = false;
+}
+
+leftBtn.addEventListener("touchstart", e => {
+  e.preventDefault();
+  activateLeft();
+}, { passive: false });
+
+leftBtn.addEventListener("touchend", stopMove);
+leftBtn.addEventListener("mousedown", activateLeft);
+leftBtn.addEventListener("mouseup", stopMove);
+leftBtn.addEventListener("mouseleave", stopMove);
+
+rightBtn.addEventListener("touchstart", e => {
+  e.preventDefault();
+  activateRight();
+}, { passive: false });
+
+rightBtn.addEventListener("touchend", stopMove);
+rightBtn.addEventListener("mousedown", activateRight);
+rightBtn.addEventListener("mouseup", stopMove);
+rightBtn.addEventListener("mouseleave", stopMove);
+
+startBtn.addEventListener("click", () => {
   if(gameOver){
     resetGame();
   }
@@ -101,16 +134,14 @@ startBtn.addEventListener("click", ()=>{
   }
 });
 
-pauseBtn.addEventListener("click", ()=>{
+pauseBtn.addEventListener("click", () => {
   gameRunning = false;
   stopSpawning();
 });
 
-
-// SPAWN
 function spawnItem(){
-  const types = ["coin","ramen","mana","scroll","shuriken","kunai"];
-  const type = types[Math.floor(Math.random()*types.length)];
+  const types = ["coin", "ramen", "mana", "scroll", "shuriken", "kunai"];
+  const type = types[Math.floor(Math.random() * types.length)];
 
   let size = 45;
 
@@ -123,7 +154,7 @@ function spawnItem(){
     y: -size,
     width: size,
     height: size,
-    speed: fallSpeed + Math.random()*2,
+    speed: fallSpeed + Math.random() * 2,
     type: type
   });
 }
@@ -139,9 +170,7 @@ function stopSpawning(){
   spawnTimer = null;
 }
 
-
-// DIFFICULTY
-setInterval(()=>{
+setInterval(() => {
   if(gameRunning && !gameOver){
     fallSpeed += 0.2;
 
@@ -151,10 +180,8 @@ setInterval(()=>{
       startSpawning();
     }
   }
-},8000);
+}, 8000);
 
-
-// RESET
 function resetGame(){
   score = 0;
   lives = 3;
@@ -164,17 +191,14 @@ function resetGame(){
   spawnRate = 900;
   fallSpeed = 2;
 
-  player.x = canvas.width/2 - 35;
+  player.x = canvas.width / 2 - 35;
 }
 
-
-// UPDATE
 function update(){
   if(!gameRunning || gameOver){
     return;
   }
 
-  // MOVE
   if(keys["ArrowLeft"] || keys["a"] || moveLeft){
     player.x -= player.speed;
   }
@@ -183,22 +207,25 @@ function update(){
     player.x += player.speed;
   }
 
-  if(player.x < 0) player.x = 0;
+  if(player.x < 0){
+    player.x = 0;
+  }
+
   if(player.x + player.width > canvas.width){
     player.x = canvas.width - player.width;
   }
 
-  for(let i = items.length-1; i>=0; i--){
+  for(let i = items.length - 1; i >= 0; i--){
     items[i].y += items[i].speed;
 
     if(isColliding(player, items[i])){
       handleItemCollision(items[i]);
-      items.splice(i,1);
+      items.splice(i, 1);
       continue;
     }
 
     if(items[i].y > canvas.height){
-      items.splice(i,1);
+      items.splice(i, 1);
     }
   }
 
@@ -215,10 +242,8 @@ function update(){
   }
 }
 
-
-// COLLISION
-function isColliding(a,b){
-  return(
+function isColliding(a, b){
+  return (
     a.x < b.x + b.width &&
     a.x + a.width > b.x &&
     a.y < b.y + b.height &&
@@ -226,57 +251,105 @@ function isColliding(a,b){
   );
 }
 
-
-// COLLISION RESULT
 function handleItemCollision(item){
-  if(item.type === "coin") score += 10;
-  else if(item.type === "ramen") score += 20;
-  else if(item.type === "mana") score += 30;
-  else if(item.type === "scroll") score += 50;
+  if(item.type === "coin"){
+    score += 10;
+  }
+  else if(item.type === "ramen"){
+    score += 20;
+  }
+  else if(item.type === "mana"){
+    score += 30;
+  }
+  else if(item.type === "scroll"){
+    score += 50;
+  }
   else if(item.type === "shuriken" || item.type === "kunai"){
     lives -= 1;
   }
 }
 
-
-// DRAW
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
+function drawBackground(){
   if(backgroundImg.complete){
-    ctx.drawImage(backgroundImg,0,0,canvas.width,canvas.height);
-  }
-
-  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
-
-  items.forEach(item=>{
-    const imgMap = {
-      coin: coinImg,
-      ramen: ramenImg,
-      mana: manaImg,
-      scroll: scrollImg,
-      shuriken: shurikenImg,
-      kunai: kunaiImg
-    };
-
-    ctx.drawImage(imgMap[item.type], item.x, item.y, item.width, item.height);
-  });
-
-  ctx.fillStyle = "white";
-  ctx.font = "20px Poppins";
-
-  ctx.fillText("Score: "+score,20,30);
-  ctx.fillText("Record: "+record,20,60);
-
-  ctx.fillText("Ухиляйтесь від кунаїв і сюрикенів!", canvas.width/2 - 200, 90);
-
-  for(let i=0;i<lives;i++){
-    ctx.drawImage(heartImg, canvas.width-40 - i*40, 15, 28, 28);
+    ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+  } else {
+    ctx.fillStyle = "#1a1a1a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 }
 
+function drawPlayer(){
+  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+}
 
-// LOOP
+function drawItems(){
+  items.forEach(item => {
+    if(item.type === "coin"){
+      ctx.drawImage(coinImg, item.x, item.y, item.width, item.height);
+    }
+    else if(item.type === "ramen"){
+      ctx.drawImage(ramenImg, item.x, item.y, item.width, item.height);
+    }
+    else if(item.type === "mana"){
+      ctx.drawImage(manaImg, item.x, item.y, item.width, item.height);
+    }
+    else if(item.type === "scroll"){
+      ctx.drawImage(scrollImg, item.x, item.y, item.width, item.height);
+    }
+    else if(item.type === "shuriken"){
+      ctx.drawImage(shurikenImg, item.x, item.y, item.width, item.height);
+    }
+    else if(item.type === "kunai"){
+      ctx.drawImage(kunaiImg, item.x, item.y, item.width, item.height);
+    }
+  });
+}
+
+function drawUI(){
+  ctx.fillStyle = "white";
+  ctx.font = "20px Poppins";
+  ctx.textAlign = "start";
+
+  ctx.fillText("Score: " + score, 20, 30);
+  ctx.fillText("Record: " + record, 20, 60);
+
+  for(let i = 0; i < lives; i++){
+    ctx.drawImage(heartImg, canvas.width - 40 - i * 40, 15, 28, 28);
+  }
+
+  if(!gameRunning && !gameOver){
+    ctx.fillStyle = "rgba(0,0,0,0.45)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "32px Poppins";
+    ctx.textAlign = "center";
+    ctx.fillText("Press Start", canvas.width / 2, canvas.height / 2);
+  }
+
+  if(gameOver){
+    ctx.fillStyle = "rgba(0,0,0,0.6)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "36px Poppins";
+    ctx.textAlign = "center";
+    ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 20);
+
+    ctx.font = "22px Poppins";
+    ctx.fillText("Final Score: " + score, canvas.width / 2, canvas.height / 2 + 20);
+    ctx.fillText("Press Start to play again", canvas.width / 2, canvas.height / 2 + 60);
+  }
+}
+
+function draw(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground();
+  drawPlayer();
+  drawItems();
+  drawUI();
+}
+
 function gameLoop(){
   update();
   draw();
