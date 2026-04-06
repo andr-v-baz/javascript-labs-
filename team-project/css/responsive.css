@@ -1,23 +1,42 @@
 @media (max-width:575px){
 
   .navbar{
+    padding:14px 16px;
+    gap:14px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+
+  .logo img{
+    height:62px;
+  }
+
+  .menu-toggle{
+    display:flex;
+  }
+
+  .nav-right{
+    width:100%;
+    display:none;
     flex-direction:column;
-    gap:15px;
-    padding:16px;
+    align-items:center;
+    gap:16px;
+    padding:14px 0 6px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-right.open{
+    display:flex;
   }
 
   .menu{
     flex-direction:column;
     align-items:center;
-    gap:12px;
+    gap:16px;
   }
 
   .menu a{
     font-size:18px;
-  }
-
-  .logo img{
-    height:68px;
   }
 
   #greeting{
@@ -114,14 +133,38 @@
 @media (min-width:576px) and (max-width:767px){
 
   .navbar{
+    padding:16px 20px;
+    gap:16px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+
+  .logo img{
+    height:68px;
+  }
+
+  .menu-toggle{
+    display:flex;
+  }
+
+  .nav-right{
+    width:100%;
+    display:none;
     flex-direction:column;
-    gap:18px;
-    padding:20px;
+    align-items:center;
+    gap:16px;
+    padding:14px 0 6px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-right.open{
+    display:flex;
   }
 
   .menu{
-    justify-content:center;
-    flex-wrap:wrap;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
   }
 
   #greeting{
@@ -155,6 +198,16 @@
 
 @media (min-width:768px) and (max-width:991px){
 
+  .menu-toggle{
+    display:none;
+  }
+
+  .nav-right{
+    display:flex !important;
+    flex-direction:row;
+    align-items:center;
+  }
+
   #categories{
     grid-template-columns:repeat(3,1fr);
     padding:30px;
@@ -171,6 +224,16 @@
 
 @media (min-width:992px) and (max-width:1199px){
 
+  .menu-toggle{
+    display:none;
+  }
+
+  .nav-right{
+    display:flex !important;
+    flex-direction:row;
+    align-items:center;
+  }
+
   #categories{
     grid-template-columns:repeat(4,1fr);
   }
@@ -181,6 +244,16 @@
 }
 
 @media (min-width:1200px){
+
+  .menu-toggle{
+    display:none;
+  }
+
+  .nav-right{
+    display:flex !important;
+    flex-direction:row;
+    align-items:center;
+  }
 
   #categories{
     grid-template-columns:repeat(5,1fr);
