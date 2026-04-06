@@ -1,12 +1,9 @@
 const searchInput = document.getElementById("searchInput");
 
 searchInput.addEventListener("input", function(){
-
   const value = searchInput.value.toLowerCase().trim();
-
   const container = document.getElementById("characters");
 
-  // якщо поле пусте — нічого не показуємо
   if(value === ""){
     container.innerHTML = "";
     return;
@@ -26,9 +23,8 @@ searchInput.addEventListener("input", function(){
     displayCharacters(filtered);
   }
 
-  document.getElementById("characters-title").scrollIntoView({
+  document.getElementById("characters-section").scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
-
 });
