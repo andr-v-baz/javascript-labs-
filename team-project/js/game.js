@@ -19,6 +19,9 @@ let spawnTimer = null;
 let spawnRate = 900;
 let fallSpeed = 2;
 
+let moveLeft = false;
+let moveRight = false;
+
 const player = {
   x: canvas.width / 2 - 35,
   y: canvas.height - 90,
@@ -28,7 +31,6 @@ const player = {
 };
 
 // IMAGES
-
 const backgroundImg = new Image();
 backgroundImg.src = "images/game/background.png";
 
@@ -58,401 +60,227 @@ heartImg.src = "images/game/heart.png";
 
 
 // KEYBOARD
-
 document.addEventListener("keydown", (event)=>{
-keys[event.key] = true;
+  keys[event.key] = true;
 });
 
 document.addEventListener("keyup", (event)=>{
-keys[event.key] = false;
+  keys[event.key] = false;
+});
+
+
+// TOUCH CONTROLS
+canvas.addEventListener("touchstart", (e)=>{
+  const touchX = e.touches[0].clientX;
+  const rect = canvas.getBoundingClientRect();
+
+  const x = touchX - rect.left;
+
+  if(x < canvas.width / 2){
+    moveLeft = true;
+  } else {
+    moveRight = true;
+  }
+});
+
+canvas.addEventListener("touchend", ()=>{
+  moveLeft = false;
+  moveRight = false;
 });
 
 
 // BUTTONS
-
 startBtn.addEventListener("click", ()=>{
+  if(gameOver){
+    resetGame();
+  }
 
-if(gameOver){
-resetGame();
-}
-
-if(!gameRunning){
-gameRunning = true;
-startSpawning();
-}
-
+  if(!gameRunning){
+    gameRunning = true;
+    startSpawning();
+  }
 });
 
 pauseBtn.addEventListener("click", ()=>{
-
-gameRunning = false;
-stopSpawning();
-
+  gameRunning = false;
+  stopSpawning();
 });
 
 
-// SPAWN ITEMS
-
+// SPAWN
 function spawnItem(){
+  const types = ["coin","ramen","mana","scroll","shuriken","kunai"];
+  const type = types[Math.floor(Math.random()*types.length)];
 
-const types = ["coin","ramen","mana","scroll","shuriken","kunai"];
+  let size = 45;
 
-const type = types[Math.floor(Math.random()*types.length)];
+  if(type === "coin") size = 36;
+  if(type === "shuriken") size = 70;
+  if(type === "kunai") size = 75;
 
-let size = 45;
-
-if(type === "coin"){
-size = 36;
+  items.push({
+    x: Math.random() * (canvas.width - size),
+    y: -size,
+    width: size,
+    height: size,
+    speed: fallSpeed + Math.random()*2,
+    type: type
+  });
 }
-
-if(type === "shuriken"){
-size = 70;
-}
-
-if(type === "kunai"){
-size = 75;
-}
-
-items.push({
-
-x: Math.random() * (canvas.width - size),
-y: -size,
-width: size,
-height: size,
-speed: fallSpeed + Math.random()*2,
-type: type
-
-});
-
-}
-
-
-// SPAWN CONTROL
 
 function startSpawning(){
-
-if(!spawnTimer){
-spawnTimer = setInterval(spawnItem, spawnRate);
-}
-
+  if(!spawnTimer){
+    spawnTimer = setInterval(spawnItem, spawnRate);
+  }
 }
 
 function stopSpawning(){
-
-clearInterval(spawnTimer);
-spawnTimer = null;
-
+  clearInterval(spawnTimer);
+  spawnTimer = null;
 }
 
 
-// DIFFICULTY SYSTEM
-
+// DIFFICULTY
 setInterval(()=>{
+  if(gameRunning && !gameOver){
+    fallSpeed += 0.2;
 
-if(gameRunning && !gameOver){
-
-fallSpeed += 0.2;
-
-if(spawnRate > 400){
-
-spawnRate -= 50;
-
-stopSpawning();
-startSpawning();
-
-}
-
-}
-
+    if(spawnRate > 400){
+      spawnRate -= 50;
+      stopSpawning();
+      startSpawning();
+    }
+  }
 },8000);
 
 
 // RESET
-
 function resetGame(){
+  score = 0;
+  lives = 3;
+  items = [];
+  gameOver = false;
 
-score = 0;
-lives = 3;
-items = [];
-gameOver = false;
+  spawnRate = 900;
+  fallSpeed = 2;
 
-spawnRate = 900;
-fallSpeed = 2;
-
-player.x = canvas.width/2 - 35;
-
+  player.x = canvas.width/2 - 35;
 }
 
 
 // UPDATE
-
 function update(){
+  if(!gameRunning || gameOver){
+    return;
+  }
 
-if(!gameRunning || gameOver){
-return;
-}
+  // MOVE
+  if(keys["ArrowLeft"] || keys["a"] || moveLeft){
+    player.x -= player.speed;
+  }
 
+  if(keys["ArrowRight"] || keys["d"] || moveRight){
+    player.x += player.speed;
+  }
 
-// PLAYER MOVE
+  if(player.x < 0) player.x = 0;
+  if(player.x + player.width > canvas.width){
+    player.x = canvas.width - player.width;
+  }
 
-if(keys["ArrowLeft"] || keys["a"]){
-player.x -= player.speed;
-}
+  for(let i = items.length-1; i>=0; i--){
+    items[i].y += items[i].speed;
 
-if(keys["ArrowRight"] || keys["d"]){
-player.x += player.speed;
-}
+    if(isColliding(player, items[i])){
+      handleItemCollision(items[i]);
+      items.splice(i,1);
+      continue;
+    }
 
+    if(items[i].y > canvas.height){
+      items.splice(i,1);
+    }
+  }
 
-// LIMITS
+  if(lives <= 0){
+    lives = 0;
+    gameOver = true;
+    gameRunning = false;
+    stopSpawning();
 
-if(player.x < 0){
-player.x = 0;
-}
-
-if(player.x + player.width > canvas.width){
-player.x = canvas.width - player.width;
-}
-
-
-// MOVE ITEMS
-
-for(let i = items.length-1; i>=0; i--){
-
-items[i].y += items[i].speed;
-
-
-// COLLISION
-
-if(isColliding(player, items[i])){
-
-handleItemCollision(items[i]);
-items.splice(i,1);
-continue;
-
-}
-
-
-// OUT OF SCREEN
-
-if(items[i].y > canvas.height){
-
-items.splice(i,1);
-
-}
-
-}
-
-
-// GAME OVER
-
-if(lives <= 0){
-
-lives = 0;
-
-gameOver = true;
-gameRunning = false;
-
-stopSpawning();
-
-if(score > record){
-
-record = score;
-localStorage.setItem("ninjaDodgeRecord", record);
-
-}
-
-}
-
+    if(score > record){
+      record = score;
+      localStorage.setItem("ninjaDodgeRecord", record);
+    }
+  }
 }
 
 
 // COLLISION
-
 function isColliding(a,b){
-
-return(
-
-a.x < b.x + b.width &&
-a.x + a.width > b.x &&
-a.y < b.y + b.height &&
-a.y + a.height > b.y
-
-);
-
+  return(
+    a.x < b.x + b.width &&
+    a.x + a.width > b.x &&
+    a.y < b.y + b.height &&
+    a.y + a.height > b.y
+  );
 }
 
 
 // COLLISION RESULT
-
 function handleItemCollision(item){
-
-if(item.type === "coin"){
-score += 10;
-}
-
-else if(item.type === "ramen"){
-score += 20;
-}
-
-else if(item.type === "mana"){
-score += 30;
-}
-
-else if(item.type === "scroll"){
-score += 50;
-}
-
-else if(item.type === "shuriken" || item.type === "kunai"){
-lives -= 1;
-}
-
-}
-
-
-// DRAW BACKGROUND
-
-function drawBackground(){
-
-if(backgroundImg.complete){
-
-ctx.drawImage(backgroundImg,0,0,canvas.width,canvas.height);
-
-}else{
-
-ctx.fillStyle = "#1a1a1a";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-}
-
-}
-
-
-// DRAW PLAYER
-
-function drawPlayer(){
-
-ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
-
-}
-
-
-// DRAW ITEMS
-
-function drawItems(){
-
-items.forEach(item=>{
-
-if(item.type === "coin"){
-ctx.drawImage(coinImg, item.x, item.y, item.width, item.height);
-}
-
-else if(item.type === "ramen"){
-ctx.drawImage(ramenImg, item.x, item.y, item.width, item.height);
-}
-
-else if(item.type === "mana"){
-ctx.drawImage(manaImg, item.x, item.y, item.width, item.height);
-}
-
-else if(item.type === "scroll"){
-ctx.drawImage(scrollImg, item.x, item.y, item.width, item.height);
-}
-
-else if(item.type === "shuriken"){
-ctx.drawImage(shurikenImg, item.x, item.y, item.width, item.height);
-}
-
-else if(item.type === "kunai"){
-ctx.drawImage(kunaiImg, item.x, item.y, item.width, item.height);
-}
-
-});
-
-}
-
-
-// DRAW UI
-
-function drawUI(){
-
-ctx.fillStyle = "white";
-ctx.font = "20px Poppins";
-
-ctx.fillText("Score: "+score,20,30);
-ctx.fillText("Record: "+record,20,60);
-
-
-for(let i=0;i<lives;i++){
-
-ctx.drawImage(heartImg, canvas.width-40 - i*40, 15, 28, 28);
-
-}
-
-
-if(!gameRunning && !gameOver){
-
-ctx.fillStyle = "rgba(0,0,0,0.45)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle = "white";
-ctx.font = "32px Poppins";
-ctx.textAlign = "center";
-
-ctx.fillText("Press Start", canvas.width/2, canvas.height/2);
-
-ctx.textAlign = "start";
-
-}
-
-
-if(gameOver){
-
-ctx.fillStyle = "rgba(0,0,0,0.6)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle = "white";
-ctx.font = "36px Poppins";
-ctx.textAlign = "center";
-
-ctx.fillText("Game Over", canvas.width/2, canvas.height/2-20);
-
-ctx.font = "22px Poppins";
-
-ctx.fillText("Final Score: "+score, canvas.width/2, canvas.height/2+20);
-
-ctx.fillText("Press Start to play again", canvas.width/2, canvas.height/2+60);
-
-ctx.textAlign = "start";
-
-}
-
+  if(item.type === "coin") score += 10;
+  else if(item.type === "ramen") score += 20;
+  else if(item.type === "mana") score += 30;
+  else if(item.type === "scroll") score += 50;
+  else if(item.type === "shuriken" || item.type === "kunai"){
+    lives -= 1;
+  }
 }
 
 
 // DRAW
-
 function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(backgroundImg.complete){
+    ctx.drawImage(backgroundImg,0,0,canvas.width,canvas.height);
+  }
 
-drawBackground();
-drawPlayer();
-drawItems();
-drawUI();
+  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
 
+  items.forEach(item=>{
+    const imgMap = {
+      coin: coinImg,
+      ramen: ramenImg,
+      mana: manaImg,
+      scroll: scrollImg,
+      shuriken: shurikenImg,
+      kunai: kunaiImg
+    };
+
+    ctx.drawImage(imgMap[item.type], item.x, item.y, item.width, item.height);
+  });
+
+  ctx.fillStyle = "white";
+  ctx.font = "20px Poppins";
+
+  ctx.fillText("Score: "+score,20,30);
+  ctx.fillText("Record: "+record,20,60);
+
+  ctx.fillText("Ухиляйтесь від кунаїв і сюрикенів!", canvas.width/2 - 200, 90);
+
+  for(let i=0;i<lives;i++){
+    ctx.drawImage(heartImg, canvas.width-40 - i*40, 15, 28, 28);
+  }
 }
 
 
 // LOOP
-
 function gameLoop(){
-
-update();
-draw();
-
-requestAnimationFrame(gameLoop);
-
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
