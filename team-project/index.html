@@ -21,13 +21,21 @@
       </a>
     </div>
 
-    <ul class="menu">
-      <li><a href="#top">Дім</a></li>
-      <li><a href="#characters-section">Персонажі</a></li>
-      <li><a href="#game">Гра</a></li>
-    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Відкрити меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-    <div id="greeting"></div>
+    <div class="nav-right" id="navRight">
+      <ul class="menu" id="mobileMenu">
+        <li><a href="#top">Дім</a></li>
+        <li><a href="#characters-section">Персонажі</a></li>
+        <li><a href="#game">Гра</a></li>
+      </ul>
+
+      <div id="greeting"></div>
+    </div>
   </nav>
 
   <header class="header">
@@ -88,5 +96,6 @@
   <script src="js/search.js"></script>
   <script src="js/greeting.js"></script>
   <script src="js/game.js"></script>
+  <script src="js/menu.js"></script>
 </body>
 </html>
