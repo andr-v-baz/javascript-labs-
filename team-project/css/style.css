@@ -80,10 +80,17 @@ section{
   gap:10px;
   font-size:18px;
   font-weight:600;
+  flex-shrink:0;
 }
 
 .logo img{
   height:90px;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:28px;
 }
 
 .menu{
@@ -124,6 +131,43 @@ section{
   color:#ddd;
   font-size:15px;
   max-width:220px;
+}
+
+.menu-toggle{
+  display:none;
+  width:48px;
+  height:48px;
+  border:none;
+  border-radius:12px;
+  background:#141414;
+  cursor:pointer;
+  padding:0;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+  box-shadow:0 0 12px rgba(255,60,60,0.15);
+}
+
+.menu-toggle span{
+  display:block;
+  width:22px;
+  height:2px;
+  background:#fff;
+  border-radius:2px;
+  transition:0.25s;
+}
+
+.menu-toggle.active span:nth-child(1){
+  transform:translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2){
+  opacity:0;
+}
+
+.menu-toggle.active span:nth-child(3){
+  transform:translateY(-7px) rotate(-45deg);
 }
 
 .header{
