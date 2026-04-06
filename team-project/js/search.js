@@ -1,35 +1,34 @@
 const searchInput = document.getElementById("searchInput");
 
-searchInput.addEventListener("keydown", function(event){
+searchInput.addEventListener("input", function(){
 
-  if(event.key === "Enter"){
+  const value = searchInput.value.toLowerCase().trim();
 
-    const value = searchInput.value.toLowerCase();
+  const container = document.getElementById("characters");
 
-    const filtered = allCharacters.filter(character =>
-      character.name.toLowerCase().includes(value)
-    );
-
-    const container = document.getElementById("characters");
-
-    // режим відображення для пошуку
-    container.className = "characters-search";
-
-    if(filtered.length === 0){
-
-      container.innerHTML = "<p>Нічого не знайдено</p>";
-
-    } else {
-
-      displayCharacters(filtered);
-
-    }
-
-    // скрол до персонажів
-    document.getElementById("characters-title").scrollIntoView({
-      behavior: "smooth"
-    });
-
+  // якщо поле пусте — нічого не показуємо
+  if(value === ""){
+    container.innerHTML = "";
+    return;
   }
+
+  const filtered = allCharacters.filter(character =>
+    character.name.toLowerCase().includes(value)
+  );
+
+  container.className = "characters-search";
+
+  if(filtered.length === 0){
+    container.innerHTML = `
+      <p class="not-found">Нічого не знайдено</p>
+    `;
+  } else {
+    displayCharacters(filtered);
+  }
+
+  document.getElementById("characters-title").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 
 });
