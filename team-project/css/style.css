@@ -10,7 +10,17 @@ html{
 }
 
 section{
-  scroll-margin-top:120px;
+  scroll-margin-top:140px;
+}
+
+#characters-section{
+  scroll-margin-top:140px;
+}
+
+#game{
+  scroll-margin-top:140px;
+  text-align:center;
+  padding:80px 20px 50px 20px;
 }
 
 .not-found{
@@ -237,11 +247,6 @@ section h2{
   color:#ccc;
 }
 
-#game{
-  text-align:center;
-  padding:80px 20px 50px 20px;
-}
-
 #game h2{
   margin-left:0;
 }
@@ -252,9 +257,17 @@ section h2{
 }
 
 .game-tip{
-  color:#ffb3b3;
-  margin:10px 0 20px;
+  display:inline-block;
+  margin:10px auto 24px;
+  padding:12px 22px;
+  background:linear-gradient(135deg, rgba(255,60,60,0.2), rgba(255,120,120,0.08));
+  border:1px solid rgba(255,60,60,0.45);
+  border-radius:999px;
+  color:#ffd6d6;
   font-size:18px;
+  font-weight:600;
+  letter-spacing:0.3px;
+  box-shadow:0 0 18px rgba(255,60,60,0.18);
 }
 
 #gameCanvas{
@@ -266,16 +279,6 @@ section h2{
   background:#222;
   border:3px solid #444;
   border-radius:10px;
-}
-
-.game-controls button{
-  background:#ff3c3c;
-  box-shadow:0 0 10px rgba(255,60,60,0.6);
-  transition:0.3s;
-}
-
-.game-controls button:hover{
-  box-shadow:0 0 20px rgba(255,60,60,1);
 }
 
 footer{
