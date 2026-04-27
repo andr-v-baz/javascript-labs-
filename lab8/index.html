@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Світ аніме</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body id="top">
+
+<header class="header">
+  <h1>Світ аніме</h1>
+
+  <button class="burger" id="burgerBtn">☰</button>
+
+  <nav class="nav" id="navMenu">
+    <a href="#top">🏠 Головна</a>
+    <a href="#characters">🎴 Персонажі</a>
+    <a href="#gallery">🖼 Галерея</a>
+    <a href="#popular">⭐ Популярні аніме</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h2>Ласкаво просимо до світу аніме</h2>
+    <p>
+      Це адаптивна веб-сторінка, яка містить навігаційне меню,
+      карусель зображень, адаптивну галерею та добірку популярних аніме.
+    </p>
+  </section>
+
+  <section class="carousel" id="characters">
+    <h2>Персонажі</h2>
+
+    <button class="arrow left" id="prevBtn">❮</button>
+
+    <div class="carousel-window">
+      <div class="slides" id="slides">
+        <img src="https://placehold.co/1000x450/ffb6d9/ffffff?text=Сакура" alt="Сакура">
+        <img src="https://placehold.co/1000x450/b8d8ff/ffffff?text=Наруто" alt="Наруто">
+        <img src="https://placehold.co/1000x450/c8f7c5/ffffff?text=Луффі" alt="Луффі">
+        <img src="https://placehold.co/1000x450/e6ccff/ffffff?text=Танджіро" alt="Танджіро">
+      </div>
+    </div>
+
+    <button class="arrow right" id="nextBtn">❯</button>
+
+    <div class="indicators" id="indicators"></div>
+  </section>
+
+  <section class="image-block large-images" id="gallery">
+    <h2>Галерея для великих екранів</h2>
+
+    <div class="cards">
+      <img src="https://placehold.co/350x220/f7a8c8/ffffff?text=Аніме+сцена+1" alt="Аніме сцена 1">
+      <img src="https://placehold.co/350x220/a8c7ff/ffffff?text=Аніме+сцена+2" alt="Аніме сцена 2">
+      <img src="https://placehold.co/350x220/d6b8ff/ffffff?text=Аніме+сцена+3" alt="Аніме сцена 3">
+    </div>
+  </section>
+
+  <section class="image-block medium-images">
+    <h2>Галерея для середніх екранів</h2>
+
+    <div class="cards">
+      <img src="https://placehold.co/350x220/ffd6a5/ffffff?text=Мобільне+аніме+1" alt="Мобільне аніме 1">
+      <img src="https://placehold.co/350x220/b5ead7/ffffff?text=Мобільне+аніме+2" alt="Мобільне аніме 2">
+    </div>
+  </section>
+
+  <section class="image-block" id="popular">
+    <h2>Популярні аніме</h2>
+    <p class="section-text">
+      У цьому розділі представлено добірку відомих аніме-серіалів.
+      Кожна картка містить назву, короткий опис та тематичне зображення.
+    </p>
+
+    <div class="anime-list">
+      <div class="anime-card">
+        <img src="https://placehold.co/260x360/f9a8d4/ffffff?text=Наруто" alt="Наруто">
+        <h3>Наруто</h3>
+        <p>Історія про юного ніндзя, який мріє стати найсильнішим у своєму селищі.</p>
+      </div>
+
+      <div class="anime-card">
+        <img src="https://placehold.co/260x360/93c5fd/ffffff?text=One+Piece" alt="One Piece">
+        <h3>One Piece</h3>
+        <p>Пригодницьке аніме про піратів, дружбу, подорожі та пошук легендарного скарбу.</p>
+      </div>
+
+      <div class="anime-card">
+        <img src="https://placehold.co/260x360/c4b5fd/ffffff?text=Атака+титанів" alt="Атака титанів">
+        <h3>Атака титанів</h3>
+        <p>Драматична історія про боротьбу людей за виживання у світі, де існують титани.</p>
+      </div>
+
+      <div class="anime-card">
+        <img src="https://placehold.co/260x360/fcd34d/ffffff?text=Клинок" alt="Клинок, який знищує демонів">
+        <h3>Клинок, який знищує демонів</h3>
+        <p>Аніме про Танджіро, який бореться з демонами та намагається врятувати свою сестру.</p>
+      </div>
+
+      <div class="anime-card">
+        <img src="https://placehold.co/260x360/86efac/ffffff?text=Моя+геройська+академія" alt="Моя геройська академія">
+        <h3>Моя геройська академія</h3>
+        <p>Історія про світ супергероїв, де підлітки навчаються використовувати свої здібності.</p>
+      </div>
+
+      <div class="anime-card">
+        <img src="https://placehold.co/260x360/fca5a5/ffffff?text=Death+Note" alt="Death Note">
+        <h3>Death Note</h3>
+        <p>Психологічне аніме про зошит, який дає власнику небезпечну силу.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
