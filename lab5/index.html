@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 5</title>
+    <title>Lab 5 Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,35 +15,36 @@
         </div>
 
         <div class="content-side">
-            <h1>Робота із вводом користувача у JavaScript</h1>
+            <h1>Pixel Hunt Game</h1>
 
-            <label for="userName">Введіть своє ім’я:</label>
+            <label for="difficulty">Оберіть складність:</label>
+            <select id="difficulty">
+                <option value="">-- Оберіть --</option>
+                <option value="easy">Easy</option>
+                <option value="normal">Normal</option>
+                <option value="hard">Hard</option>
+            </select>
 
-            <input 
-                type="text" 
-                id="userName" 
-                placeholder="Ваше ім’я"
-            >
+            <label for="colorPicker">Оберіть колір квадрата:</label>
+            <input type="color" id="colorPicker" value="#ff4fa3">
 
-            <div class="buttons">
-                <button id="showBtn">
-                    Показати привітання
-                </button>
+            <button id="startBtn">Start Game</button>
 
-                <button id="clearBtn">
-                    Очистити
-                </button>
+            <div class="info">
+                <p>Score: <span id="score">0</span></p>
+                <p>Time: <span id="time">0</span></p>
             </div>
 
-            <div id="result">
-                Тут з’явиться результат
+            <div id="gameArea">
+                <div id="target"></div>
             </div>
 
+            <p id="message">Оберіть параметри і натисніть Start</p>
         </div>
+
     </div>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
