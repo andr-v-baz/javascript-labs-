@@ -91,3 +91,37 @@ body.game-expanded{
     max-height:62vh;
   }
 }
+
+@media (max-width: 768px) {
+  #game.custom-fullscreen{
+    position:fixed !important;
+    inset:0 !important;
+    width:100vw !important;
+    height:100vh !important;
+    overflow:hidden !important;
+    background:#000 !important;
+  }
+
+  #game.custom-fullscreen #game-container{
+    width:100vw !important;
+    height:100vh !important;
+  }
+
+  #game.custom-fullscreen #gameCanvas{
+    width:100vw !important;
+    height:100vh !important;
+  }
+
+  #game.custom-fullscreen .game-controls{
+    top:8px !important;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:6px;
+  }
+
+  #game.custom-fullscreen .game-controls button{
+    padding:8px 12px;
+    font-size:13px;
+  }
+}
