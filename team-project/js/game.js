@@ -179,21 +179,15 @@ function resizeCanvasToScreen(){
   }
 
   const isMobile = window.innerWidth <= 767;
-  const isLandscape = window.innerWidth > window.innerHeight;
 
-  let topSpace = isMobile ? 56 : 70;
-  let bottomSpace = isMobile ? 108 : 20;
+  let topSpace = isMobile ? 58 : 80;
+  let bottomSpace = isMobile ? 105 : 25;
 
-  if(isMobile && isLandscape){
-    topSpace = 48;
-    bottomSpace = 86;
-  }
-
-  let availableWidth = window.innerWidth * 0.96;
+  let availableWidth = window.innerWidth * 0.92;
   let availableHeight = window.innerHeight - topSpace - bottomSpace;
 
-  if(availableHeight < 180){
-    availableHeight = window.innerHeight * 0.6;
+  if(isMobile){
+    availableWidth = window.innerWidth * 0.96;
   }
 
   let newWidth = availableWidth;
@@ -204,11 +198,11 @@ function resizeCanvasToScreen(){
     newWidth = newHeight * aspectRatio;
   }
 
-  canvas.width = Math.round(newWidth);
-  canvas.height = Math.round(newHeight);
+  canvas.width = Math.floor(newWidth);
+  canvas.height = Math.floor(newHeight);
 
-  canvas.style.width = Math.round(newWidth) + "px";
-  canvas.style.height = Math.round(newHeight) + "px";
+  canvas.style.width = Math.floor(newWidth) + "px";
+  canvas.style.height = Math.floor(newHeight) + "px";
 
   player.y = canvas.height - 90;
 
