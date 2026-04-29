@@ -30,6 +30,10 @@
   box-shadow:0 0 12px rgba(255,60,60,0.6);
 }
 
+.game-controls button:hover{
+  background:#ff1f1f;
+}
+
 #gameCanvas{
   width:100%;
   max-width:800px;
@@ -47,6 +51,8 @@
 body.game-lock{
   overflow:hidden !important;
 }
+
+/* FULLSCREEN */
 
 #game.custom-fullscreen{
   position:fixed !important;
@@ -67,43 +73,54 @@ body.game-lock{
 #game.custom-fullscreen #game-container{
   width:100vw !important;
   height:100vh !important;
+  padding:0 !important;
+  margin:0 !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
-  padding:80px 20px 25px !important;
-  box-sizing:border-box !important;
   overflow:hidden !important;
 }
 
 #game.custom-fullscreen .game-controls{
   position:fixed !important;
-  top:14px !important;
+  top:12px !important;
   left:50% !important;
   transform:translateX(-50%) !important;
-  width:min(760px, 92vw) !important;
+  width:min(760px, 94vw) !important;
   margin:0 !important;
   z-index:1000000 !important;
+  display:flex !important;
+  gap:10px !important;
 }
 
 #game.custom-fullscreen .game-controls button{
   flex:1;
   padding:12px 0 !important;
   font-size:15px !important;
-}
-
-#game.custom-fullscreen #gameCanvas{
-  width:auto !important;
-  height:auto !important;
-  max-width:92vw !important;
-  max-height:calc(100vh - 120px) !important;
-  border:3px solid #333 !important;
   border-radius:12px !important;
 }
+
+/* НОУТ FULLSCREEN */
+
+@media (min-width:768px){
+
+  #game.custom-fullscreen #gameCanvas{
+    width:100vw !important;
+    height:100vh !important;
+    max-width:none !important;
+    max-height:none !important;
+    border:none !important;
+    border-radius:0 !important;
+  }
+}
+
+/* ТЕЛЕФОН */
 
 @media (max-width:767px){
 
   #game.custom-fullscreen #game-container{
-    padding:58px 8px 105px !important;
+    padding:54px 6px 100px !important;
+    box-sizing:border-box !important;
   }
 
   #game.custom-fullscreen .game-controls{
@@ -115,11 +132,16 @@ body.game-lock{
   #game.custom-fullscreen .game-controls button{
     padding:10px 0 !important;
     font-size:13px !important;
+    border-radius:10px !important;
   }
 
   #game.custom-fullscreen #gameCanvas{
+    width:96vw !important;
+    height:auto !important;
     max-width:96vw !important;
-    max-height:calc(100vh - 165px) !important;
+    max-height:calc(100vh - 160px) !important;
+    border:2px solid #333 !important;
+    border-radius:10px !important;
   }
 
   #game.custom-fullscreen .mobile-controls{
@@ -145,5 +167,37 @@ body.game-lock{
     color:white !important;
     font-size:32px !important;
     font-weight:bold !important;
+    box-shadow:0 0 18px rgba(255,60,60,0.8) !important;
+  }
+
+  #game.custom-fullscreen .mobile-controls button:active{
+    transform:scale(0.9);
+    background:#ff1f1f !important;
+  }
+}
+
+/* ТЕЛЕФОН ГОРИЗОНТАЛЬНО */
+
+@media (max-width:767px) and (orientation:landscape){
+
+  #game.custom-fullscreen #game-container{
+    padding:48px 8px 80px !important;
+  }
+
+  #game.custom-fullscreen #gameCanvas{
+    width:auto !important;
+    height:calc(100vh - 135px) !important;
+    max-width:96vw !important;
+  }
+
+  #game.custom-fullscreen .mobile-controls{
+    bottom:7px !important;
+    padding:0 34px !important;
+  }
+
+  #game.custom-fullscreen .mobile-controls button{
+    width:66px !important;
+    height:66px !important;
+    font-size:29px !important;
   }
 }
