@@ -28,6 +28,7 @@ let fallSpeed = 2;
 
 const normalWidth = 800;
 const normalHeight = 400;
+const aspectRatio = normalWidth / normalHeight;
 
 canvas.width = normalWidth;
 canvas.height = normalHeight;
@@ -153,6 +154,22 @@ function isMobileScreen(){
   return window.innerWidth <= 767;
 }
 
+function getScreenWidth(){
+  if(window.visualViewport){
+    return window.visualViewport.width;
+  }
+
+  return window.innerWidth;
+}
+
+function getScreenHeight(){
+  if(window.visualViewport){
+    return window.visualViewport.height;
+  }
+
+  return window.innerHeight;
+}
+
 function enterCustomFullscreen(){
   gameSection.classList.add("custom-fullscreen");
   document.body.classList.add("game-lock");
@@ -181,21 +198,47 @@ function resizeCanvasForMode(){
     return;
   }
 
+  const screenWidth = getScreenWidth();
+  const screenHeight = getScreenHeight();
+
   if(isMobileScreen()){
     canvas.width = normalWidth;
     canvas.height = normalHeight;
 
-    canvas.style.width = "";
-    canvas.style.height = "";
+    let topSpace = 58;
+    let bottomSpace = 105;
+
+    if(screenWidth > screenHeight){
+      topSpace = 46;
+      bottomSpace = 72;
+    }
+
+    let availableWidth = screenWidth * 0.94;
+    let availableHeight = screenHeight - topSpace - bottomSpace;
+
+    if(availableHeight < 160){
+      availableHeight = screenHeight * 0.5;
+    }
+
+    let displayWidth = availableWidth;
+    let displayHeight = displayWidth / aspectRatio;
+
+    if(displayHeight > availableHeight){
+      displayHeight = availableHeight;
+      displayWidth = displayHeight * aspectRatio;
+    }
+
+    canvas.style.width = Math.floor(displayWidth) + "px";
+    canvas.style.height = Math.floor(displayHeight) + "px";
 
     player.x = canvas.width / 2 - player.width / 2;
     player.y = canvas.height - 90;
   }else{
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = Math.floor(screenWidth);
+    canvas.height = Math.floor(screenHeight);
 
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
+    canvas.style.width = Math.floor(screenWidth) + "px";
+    canvas.style.height = Math.floor(screenHeight) + "px";
 
     player.x = canvas.width / 2 - player.width / 2;
     player.y = canvas.height - 90;
@@ -204,8 +247,12 @@ function resizeCanvasForMode(){
 
 window.addEventListener("resize", resizeCanvasForMode);
 
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize", resizeCanvasForMode);
+}
+
 window.addEventListener("orientationchange", () => {
-  setTimeout(resizeCanvasForMode, 300);
+  setTimeout(resizeCanvasForMode, 500);
 });
 
 function spawnItem(){
@@ -355,18 +402,15 @@ function drawItems(){
 }
 
 function drawUI(){
-  const fullscreen = gameSection.classList.contains("custom-fullscreen");
-  const topOffset = fullscreen && !isMobileScreen() ? 70 : 0;
-
   ctx.fillStyle = "white";
   ctx.font = "20px Poppins";
   ctx.textAlign = "start";
 
-  ctx.fillText("Score: " + score, 20, 30 + topOffset);
-  ctx.fillText("Record: " + record, 20, 60 + topOffset);
+  ctx.fillText("Score: " + score, 20, 30);
+  ctx.fillText("Record: " + record, 20, 60);
 
   for(let i = 0; i < lives; i++){
-    ctx.drawImage(heartImg, canvas.width - 40 - i * 40, 15 + topOffset, 28, 28);
+    ctx.drawImage(heartImg, canvas.width - 40 - i * 40, 15, 28, 28);
   }
 
   if(!gameRunning && !gameOver){
