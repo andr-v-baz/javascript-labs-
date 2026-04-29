@@ -100,7 +100,7 @@ if(leftBtn){
   leftBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
     pressLeft();
-  });
+  }, {passive:false});
 
   leftBtn.addEventListener("touchend", releaseLeft);
   leftBtn.addEventListener("touchcancel", releaseLeft);
@@ -114,7 +114,7 @@ if(rightBtn){
   rightBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
     pressRight();
-  });
+  }, {passive:false});
 
   rightBtn.addEventListener("touchend", releaseRight);
   rightBtn.addEventListener("touchcancel", releaseRight);
@@ -152,12 +152,15 @@ if(fullscreenBtn && gameSection){
 
 function enterCustomFullscreen(){
   gameSection.classList.add("custom-fullscreen");
+  document.body.classList.add("game-lock");
   fullscreenBtn.textContent = "Exit full";
+
   resizeCanvasToScreen();
 }
 
 function exitCustomFullscreen(){
   gameSection.classList.remove("custom-fullscreen");
+  document.body.classList.remove("game-lock");
   fullscreenBtn.textContent = "Full screen";
 
   canvas.width = normalWidth;
@@ -175,15 +178,22 @@ function resizeCanvasToScreen(){
     return;
   }
 
-  const isMobile = window.innerWidth <= 768;
-  const topSpace = isMobile ? 54 : 72;
-  const bottomSpace = isMobile ? 110 : 25;
+  const isMobile = window.innerWidth <= 767;
+  const isLandscape = window.innerWidth > window.innerHeight;
+
+  let topSpace = isMobile ? 56 : 70;
+  let bottomSpace = isMobile ? 108 : 20;
+
+  if(isMobile && isLandscape){
+    topSpace = 48;
+    bottomSpace = 86;
+  }
 
   let availableWidth = window.innerWidth * 0.96;
   let availableHeight = window.innerHeight - topSpace - bottomSpace;
 
-  if(availableHeight < 220){
-    availableHeight = window.innerHeight * 0.72;
+  if(availableHeight < 180){
+    availableHeight = window.innerHeight * 0.6;
   }
 
   let newWidth = availableWidth;
