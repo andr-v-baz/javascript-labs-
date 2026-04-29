@@ -10,15 +10,16 @@
 @media (max-width:767px){
 
   .navbar{
-    padding:12px 16px;
-    gap:12px;
+    padding:10px 14px;
+    display:flex;
     align-items:center;
     justify-content:space-between;
     flex-wrap:wrap;
+    gap:10px;
   }
 
   .logo img{
-    height:62px;
+    height:56px;
   }
 
   .menu-toggle{
@@ -35,21 +36,21 @@
   }
 
   .menu-toggle span{
-    width:25px;
+    display:block;
+    width:26px;
     height:3px;
     background:white;
-    border-radius:4px;
-    display:block;
+    border-radius:5px;
   }
 
   .nav-right{
-    width:100%;
     display:none;
+    width:100%;
     flex-direction:column;
     align-items:center;
-    gap:14px;
-    padding:14px 0 8px;
-    border-top:1px solid rgba(255,255,255,0.08);
+    background:#050505;
+    padding:14px 0;
+    border-top:1px solid rgba(255,255,255,0.1);
   }
 
   .nav-right.open{
@@ -57,24 +58,35 @@
   }
 
   .menu{
+    width:100%;
+    display:flex;
     flex-direction:column;
     align-items:center;
-    gap:14px;
+    gap:0;
     margin:0;
     padding:0;
   }
 
+  .menu li{
+    width:100%;
+    text-align:center;
+  }
+
   .menu a{
+    display:block;
+    width:100%;
+    padding:14px 0;
     font-size:18px;
   }
 
   #greeting{
+    margin-top:8px;
     text-align:center;
-    max-width:100%;
+    font-size:15px;
   }
 
   .header{
-    padding:30px 16px;
+    padding:28px 16px;
   }
 
   .header h1{
@@ -102,20 +114,16 @@
     align-items:center;
   }
 
-  .name-box input{
-    width:100%;
-    max-width:280px;
-    margin-right:0;
-    box-sizing:border-box;
-  }
-
+  .name-box input,
   .name-box button{
     width:100%;
     max-width:280px;
+    box-sizing:border-box;
+    margin-right:0;
   }
 
   #searchInput{
-    width:100%;
+    width:90%;
     max-width:320px;
   }
 
@@ -135,7 +143,7 @@
   }
 
   #game{
-    padding:50px 10px;
+    padding:45px 10px;
   }
 
   footer{
