@@ -28,6 +28,7 @@ let fallSpeed = 2;
 
 const normalWidth = 800;
 const normalHeight = 400;
+const aspectRatio = normalWidth / normalHeight;
 
 canvas.width = normalWidth;
 canvas.height = normalHeight;
@@ -79,50 +80,48 @@ document.addEventListener("keyup", (event) => {
   keys[event.key] = false;
 });
 
+function pressLeft(){
+  leftPressed = true;
+}
+
+function releaseLeft(){
+  leftPressed = false;
+}
+
+function pressRight(){
+  rightPressed = true;
+}
+
+function releaseRight(){
+  rightPressed = false;
+}
+
 if(leftBtn){
   leftBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    leftPressed = true;
+    pressLeft();
   });
 
-  leftBtn.addEventListener("touchend", () => {
-    leftPressed = false;
-  });
+  leftBtn.addEventListener("touchend", releaseLeft);
+  leftBtn.addEventListener("touchcancel", releaseLeft);
 
-  leftBtn.addEventListener("touchcancel", () => {
-    leftPressed = false;
-  });
-
-  leftBtn.addEventListener("mousedown", () => {
-    leftPressed = true;
-  });
-
-  leftBtn.addEventListener("mouseup", () => {
-    leftPressed = false;
-  });
+  leftBtn.addEventListener("mousedown", pressLeft);
+  leftBtn.addEventListener("mouseup", releaseLeft);
+  leftBtn.addEventListener("mouseleave", releaseLeft);
 }
 
 if(rightBtn){
   rightBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    rightPressed = true;
+    pressRight();
   });
 
-  rightBtn.addEventListener("touchend", () => {
-    rightPressed = false;
-  });
+  rightBtn.addEventListener("touchend", releaseRight);
+  rightBtn.addEventListener("touchcancel", releaseRight);
 
-  rightBtn.addEventListener("touchcancel", () => {
-    rightPressed = false;
-  });
-
-  rightBtn.addEventListener("mousedown", () => {
-    rightPressed = true;
-  });
-
-  rightBtn.addEventListener("mouseup", () => {
-    rightPressed = false;
-  });
+  rightBtn.addEventListener("mousedown", pressRight);
+  rightBtn.addEventListener("mouseup", releaseRight);
+  rightBtn.addEventListener("mouseleave", releaseRight);
 }
 
 startBtn.addEventListener("click", () => {
@@ -154,7 +153,6 @@ if(fullscreenBtn && gameSection){
 function enterCustomFullscreen(){
   gameSection.classList.add("custom-fullscreen");
   fullscreenBtn.textContent = "Exit full";
-
   resizeCanvasToScreen();
 }
 
@@ -168,8 +166,8 @@ function exitCustomFullscreen(){
   canvas.style.width = "";
   canvas.style.height = "";
 
-  player.y = canvas.height - 90;
   player.x = canvas.width / 2 - player.width / 2;
+  player.y = canvas.height - 90;
 }
 
 function resizeCanvasToScreen(){
@@ -177,11 +175,30 @@ function resizeCanvasToScreen(){
     return;
   }
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  const isMobile = window.innerWidth <= 768;
+  const topSpace = isMobile ? 54 : 72;
+  const bottomSpace = isMobile ? 110 : 25;
 
-  canvas.style.width = window.innerWidth + "px";
-  canvas.style.height = window.innerHeight + "px";
+  let availableWidth = window.innerWidth * 0.96;
+  let availableHeight = window.innerHeight - topSpace - bottomSpace;
+
+  if(availableHeight < 220){
+    availableHeight = window.innerHeight * 0.72;
+  }
+
+  let newWidth = availableWidth;
+  let newHeight = newWidth / aspectRatio;
+
+  if(newHeight > availableHeight){
+    newHeight = availableHeight;
+    newWidth = newHeight * aspectRatio;
+  }
+
+  canvas.width = Math.round(newWidth);
+  canvas.height = Math.round(newHeight);
+
+  canvas.style.width = Math.round(newWidth) + "px";
+  canvas.style.height = Math.round(newHeight) + "px";
 
   player.y = canvas.height - 90;
 
@@ -195,6 +212,7 @@ function resizeCanvasToScreen(){
 }
 
 window.addEventListener("resize", resizeCanvasToScreen);
+
 window.addEventListener("orientationchange", () => {
   setTimeout(resizeCanvasToScreen, 300);
 });
