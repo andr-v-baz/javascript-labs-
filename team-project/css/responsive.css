@@ -7,12 +7,13 @@
   align-items:center;
 }
 
-@media (max-width:575px){
+@media (max-width:767px){
 
   .navbar{
-    padding:14px 16px;
-    gap:14px;
+    padding:12px 16px;
+    gap:12px;
     align-items:center;
+    justify-content:space-between;
     flex-wrap:wrap;
   }
 
@@ -23,16 +24,18 @@
   .menu-toggle{
     display:flex;
     flex-direction:column;
+    justify-content:center;
     gap:5px;
     background:#ff3c3c;
     border:none;
     border-radius:10px;
     padding:10px;
     cursor:pointer;
+    box-shadow:0 0 12px rgba(255,60,60,0.6);
   }
 
   .menu-toggle span{
-    width:24px;
+    width:25px;
     height:3px;
     background:white;
     border-radius:4px;
@@ -44,8 +47,8 @@
     display:none;
     flex-direction:column;
     align-items:center;
-    gap:16px;
-    padding:14px 0 6px;
+    gap:14px;
+    padding:14px 0 8px;
     border-top:1px solid rgba(255,255,255,0.08);
   }
 
@@ -56,7 +59,7 @@
   .menu{
     flex-direction:column;
     align-items:center;
-    gap:16px;
+    gap:14px;
     margin:0;
     padding:0;
   }
@@ -122,13 +125,17 @@
   }
 
   #characters{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr !important;
     padding:20px;
   }
 
   .characters-full,
   .characters-search{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr !important;
+  }
+
+  #game{
+    padding:50px 10px;
   }
 
   footer{
@@ -137,89 +144,10 @@
   }
 }
 
-@media (min-width:576px) and (max-width:767px){
-
-  .navbar{
-    padding:16px 20px;
-    gap:16px;
-    align-items:center;
-    flex-wrap:wrap;
-  }
-
-  .logo img{
-    height:68px;
-  }
-
-  .menu-toggle{
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    background:#ff3c3c;
-    border:none;
-    border-radius:10px;
-    padding:10px;
-    cursor:pointer;
-  }
-
-  .menu-toggle span{
-    width:24px;
-    height:3px;
-    background:white;
-    border-radius:4px;
-    display:block;
-  }
-
-  .nav-right{
-    width:100%;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    gap:16px;
-    padding:14px 0 6px;
-    border-top:1px solid rgba(255,255,255,0.08);
-  }
-
-  .nav-right.open{
-    display:flex;
-  }
-
-  .menu{
-    flex-direction:column;
-    align-items:center;
-    gap:16px;
-    margin:0;
-    padding:0;
-  }
-
-  #greeting{
-    text-align:center;
-    max-width:100%;
-  }
-
-  #categories{
-    grid-template-columns:repeat(2,1fr);
-    padding:30px;
-  }
-
-  #characters{
-    grid-template-columns:repeat(2,1fr);
-    padding:30px;
-  }
-
-  .characters-full{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  #searchInput{
-    width:80%;
-    max-width:360px;
-  }
-}
-
 @media (min-width:768px){
 
   .menu-toggle{
-    display:none;
+    display:none !important;
   }
 
   .nav-right{
