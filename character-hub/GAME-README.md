@@ -1,2 +1,18 @@
-Ninja Dodge — це аркадна гра, реалізована на JavaScript із використанням елемента HTML5 Canvas. Гравець керує персонажем ніндзя, який може рухатися вліво та вправо за допомогою клавіш ← → або A/D. Із верхньої частини екрана падають різні об’єкти: корисні (монети, рамен, магічні кристали, сувої), що збільшують рахунок, та небезпечні (сюрікени і кунаї), які зменшують кількість життів.
-Мета гри — набирати якомога більше очок, уникаючи небезпечних предметів. Гра поступово ускладнюється: швидкість падіння об’єктів і частота їх появи збільшується з часом. Коли життя гравця закінчуються, гра завершується, а найкращий результат зберігається у localStorage браузера як рекорд.
+Anime Character Hub
+
+Interactive anime-themed web application built with HTML, CSS and JavaScript.
+
+Features
+- Anime categories and characters
+- Character search
+- Greeting system with localStorage
+- Responsive design
+- Ninja Dodge mini-game
+- Mobile support
+- GitHub Pages deployment
+
+Technologies
+- HTML
+- CSS
+- JavaScript
+- GitHub Pages
