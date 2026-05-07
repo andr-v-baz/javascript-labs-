@@ -1,0 +1,128 @@
+{
+  "categories": [
+    {
+      "name": "Naruto",
+      "image": "images/categories/naruto.jpg",
+      "characters": [
+        {
+          "name": "Naruto Uzumaki",
+          "image": "images/anime/naruto/naruto-uzumaki.jpg",
+          "description": "A ninja from the Hidden Leaf Village who dreams of becoming Hokage and proving his strength to everyone.",
+          "power": "Shadow Clones, Rasengan"
+        },
+        {
+          "name": "Sasuke Uchiha",
+          "image": "images/anime/naruto/sasuke-uchiha.jpg",
+          "description": "The last survivor of the Uchiha clan who seeks revenge and power.",
+          "power": "Sharingan, Chidori"
+        },
+        {
+          "name": "Kakashi Hatake",
+          "image": "images/anime/naruto/kakashi-hatake.jpg",
+          "description": "Leader of Team 7, known as the Copy Ninja.",
+          "power": "Sharingan, Lightning Blade"
+        }
+      ]
+    },
+
+    {
+      "name": "One Piece",
+      "image": "images/categories/onepiece.jpg",
+      "characters": [
+        {
+          "name": "Monkey D. Luffy",
+          "image": "images/anime/onepiece/luffy.jpg",
+          "description": "Captain of the Straw Hat Pirates who dreams of finding the legendary One Piece treasure.",
+          "power": "Rubber Body Powers"
+        },
+        {
+          "name": "Roronoa Zoro",
+          "image": "images/anime/onepiece/zoro.jpg",
+          "description": "The swordsman of Luffy’s crew and one of the strongest fighters on the team.",
+          "power": "Three Sword Style"
+        },
+        {
+          "name": "Nami",
+          "image": "images/anime/onepiece/nami.jpg",
+          "description": "The navigator of the crew with excellent weather and navigation skills.",
+          "power": "Weather Manipulation"
+        }
+      ]
+    },
+
+    {
+      "name": "Demon Slayer",
+      "image": "images/categories/demonslayer.jpg",
+      "characters": [
+        {
+          "name": "Tanjiro Kamado",
+          "image": "images/anime/demonslayer/tanjiro.jpg",
+          "description": "A demon slayer searching for a way to save his sister.",
+          "power": "Water Breathing"
+        },
+        {
+          "name": "Nezuko Kamado",
+          "image": "images/anime/demonslayer/nezuko.jpg",
+          "description": "Tanjiro’s sister who became a demon but kept her humanity.",
+          "power": "Blood Demon Art"
+        },
+        {
+          "name": "Zenitsu Agatsuma",
+          "image": "images/anime/demonslayer/zenitsu.jpg",
+          "description": "A fearful but incredibly powerful demon slayer.",
+          "power": "Thunder Breathing"
+        }
+      ]
+    },
+
+    {
+      "name": "Jujutsu Kaisen",
+      "image": "images/categories/jjk.jpg",
+      "characters": [
+        {
+          "name": "Yuji Itadori",
+          "image": "images/anime/jjk/itadori.jpg",
+          "description": "A student who became the vessel of Sukuna’s curse.",
+          "power": "Superhuman Strength"
+        },
+        {
+          "name": "Satoru Gojo",
+          "image": "images/anime/jjk/gojo.jpg",
+          "description": "The strongest jujutsu sorcerer in the world.",
+          "power": "Infinity"
+        },
+        {
+          "name": "Megumi Fushiguro",
+          "image": "images/anime/jjk/megumi.jpg",
+          "description": "A calm and strategic fighter with unique shadow techniques.",
+          "power": "Shadow Shikigami"
+        }
+      ]
+    },
+
+    {
+      "name": "Hunter x Hunter",
+      "image": "images/categories/hunterxhunter.jpg",
+      "characters": [
+        {
+          "name": "Hisoka",
+          "image": "images/anime/hunterxhunter/hisoka.jpg",
+          "description": "A mysterious and dangerous fighter who enjoys battling strong opponents.",
+          "power": "Bungee Gum"
+        },
+        {
+          "name": "Illumi Zoldyck",
+          "image": "images/anime/hunterxhunter/illumi.jpg",
+          "description": "Killua’s older brother and a cold-blooded assassin.",
+          "power": "Needle Manipulation"
+        },
+        {
+          "name": "Killua Zoldyck",
+          "image": "images/anime/hunterxhunter/killua.jpg",
+          "description": "A talented assassin and Gon’s best friend.",
+          "power": "Lightning Aura"
+        }
+      ]
+    }
+  ]
+}
